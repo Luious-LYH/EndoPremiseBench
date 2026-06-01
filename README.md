@@ -34,7 +34,10 @@ questions.
 - Conservative answer parsing and metrics for supported-question accuracy,
   false-premise rejection, unsupported-attribute exposure, over-refusal, parse
   failures, and balance.
-- Paper-facing analysis utilities for tables and figures.
+- Paper-facing analysis utilities for tables and figures, including the frozen
+  20260525 asset builder.
+- Supplemental control utilities for prompt sensitivity, image mismatch,
+  closed/API text-only controls, parse repair, shard merging, and ID tracking.
 
 This repository intentionally does **not** redistribute endoscopy images, model
 weights, API keys, raw provider logs, or private review-stage material.
@@ -135,6 +138,14 @@ python analysis/summarize_main_metrics.py \
   --csv-output tables/main_results_v2.csv
 ```
 
+Build supplemental control manifests and paper-facing assets:
+
+```bash
+python controls/build_prompt_sensitivity.py
+python controls/build_image_mismatch_manifest.py
+python analysis/build_paper_assets.py
+```
+
 ## Data
 
 Place licensed local copies under `data/` or override paths in
@@ -172,6 +183,7 @@ data_building/  Source profiling and benchmark manifest construction.
 inference/      Open-weight, text-only, and closed/API-compatible runners.
 scoring/        Answer parsing, self-tests, and metric computation.
 analysis/       Result aggregation and paper-facing asset generation.
+controls/       Supplemental controls, repair manifests, and API control runs.
 examples/       Copy-pasteable command recipes.
 docs/           Project-page style overview and release notes.
 assets/         README and project-page visuals.
@@ -190,6 +202,8 @@ fresh clones stay light.
   `--num-shards`, `--shard-index`, `--resume`, and `--skip-success-output`.
 - `docs/software_manifest.tsv` records the staged software attachment contents
   and hashes used for the paper package.
+- `docs/code_audit.md` records what was included from the old local tree and
+  the two experiment servers, and why raw/log/endpoint artifacts were excluded.
 - Paper asset scripts assume that generated result bundles already exist; they
   do not rerun models.
 
