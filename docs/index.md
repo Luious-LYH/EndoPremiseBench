@@ -1,14 +1,16 @@
 # EndoPremiseBench Project Page
 
-The polished GitHub Pages entry is [`index.html`](index.html).
+The polished project page is [`index.html`](index.html). The repository root
+also contains a redirecting `index.html`, so GitHub Pages works with the current
+settings:
 
 Use this repository's GitHub Pages settings with:
 
 ```text
 Source: Deploy from a branch
 Branch: main
-Folder: /docs
+Folder: / (root)
 ```
 
-The page uses the tracked lightweight images copied under `docs/assets/` so it
-works both from GitHub Pages and from a local static server.
+The README and project page use the tracked updated figure at
+`assets/readme/benchmark_overview.png`.

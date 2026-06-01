@@ -10,7 +10,7 @@
 [Project page](https://luious-lyh.github.io/EndoPremiseBench/) | [Local page](docs/index.html) | [English](#english) | [中文](#中文)
 
 <p align="center">
-  <img src="assets/readme/benchmark_overview.jpg" width="95%" alt="EndoPremiseBench construction and evaluation overview">
+  <img src="assets/readme/benchmark_overview.png" width="95%" alt="EndoPremiseBench construction and evaluation overview">
 </p>
 
 ## English

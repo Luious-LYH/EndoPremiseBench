@@ -17,6 +17,7 @@ tables/*
 figures/*
 !figures/.gitkeep
 assets/readme/*.png
+!assets/readme/benchmark_overview.png
 !assets/readme/*.jpg
 *.zip
 *.tgz
