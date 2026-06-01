@@ -1,0 +1,4 @@
+Answer the question based on the image.
+Choose exactly one option: A, B, C, or D.
+Return JSON only: {"answer": "<A/B/C/D>"}
+

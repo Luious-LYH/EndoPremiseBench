@@ -1,0 +1,15 @@
+pandas
+matplotlib
+Pillow
+requests
+
+# Optional for local open-weight VLM inference.
+torch
+torchvision
+transformers
+accelerate
+peft
+qwen-vl-utils
+
+# Optional for LLaVA-family runners if used.
+# llava

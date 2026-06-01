@@ -1,0 +1,34 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.codex_selftest/
+.venv/
+venv/
+env/
+
+# Local datasets, model caches, and generated experiment artifacts.
+data/
+shared_cache/
+logs/
+results/*
+tables/*
+figures/*
+!figures/.gitkeep
+assets/readme/*.png
+!assets/readme/*.jpg
+*.zip
+*.tgz
+
+# Keep placeholder files so output directories exist in fresh clones.
+!results/.gitkeep
+!tables/.gitkeep
+
+# Environment files may contain credentials.
+.env
+.env.*
+*.key
+*.pem
+*.p12
+*.pfx

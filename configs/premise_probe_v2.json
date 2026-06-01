@@ -1,0 +1,64 @@
+{
+  "version": "premise_probe_v2",
+  "updated_at": "2026-05-22 Asia/Shanghai",
+  "project_root": ".",
+  "data_paths": {
+    "kvasir_vqa_x1_train": "data/Kvasir-VQA-x1/Kvasir-VQA-x1_train.json",
+    "kvasir_vqa_x1_test": "data/Kvasir-VQA-x1/Kvasir-VQA-x1_test.json",
+    "kvasir_vqa": "data/Kvasir-VQA/Kvasir-VQA.json",
+    "endobench": "data/EndoBench/EndoBench.json",
+    "endobench_extended": "data/EndoBench-Extended/EndoBench-Extended.json"
+  },
+  "na_text": "not applicable / no such entity is visible",
+  "seed": 20260522,
+  "max_examples_per_source_for_report": 10,
+  "supported_false_premise_targets": [
+    "polyp",
+    "instrument",
+    "abnormality",
+    "landmark"
+  ],
+  "attribute_ontology": {
+    "color": [
+      "pink",
+      "red",
+      "white"
+    ],
+    "location": [
+      "upper region",
+      "central region",
+      "lower region"
+    ],
+    "morphology_type": [
+      "polypoid lesion",
+      "flat lesion",
+      "pedunculated lesion"
+    ],
+    "count": [
+      "one",
+      "two",
+      "three or more"
+    ],
+    "removal_status": [
+      "completely removed",
+      "residual tissue remains",
+      "not removed"
+    ],
+    "presence": [
+      "yes",
+      "no",
+      "unclear"
+    ]
+  },
+  "main_table_inclusion": {
+    "allow_scoring_types": [
+      "strict_mcq",
+      "converted_mcq"
+    ],
+    "require_traceable_label_evidence": true,
+    "exclude_open_ended_without_conversion": true,
+    "exclude_low_confidence": true
+  },
+  "_release_note": "Sanitized for anonymous ARR/OpenReview software attachment; configure local paths at runtime."
+}
+
