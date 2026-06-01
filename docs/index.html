@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="EndoPremiseBench project page and release overview.">
+  <meta name="theme-color" content="#0f172a">
+  <title>EndoPremiseBench | Project Page</title>
+  <style>
+    :root {
+      --bg: #eef2f4;
+      --panel: #ffffff;
+      --panel-soft: #f7fafb;
+      --ink: #10212b;
+      --muted: #4c5f68;
+      --line: #d7e0e4;
+      --line-strong: #b9c8cf;
+      --accent: #0f766e;
+      --accent-2: #1d4ed8;
+      --accent-3: #b45309;
+      --shadow: 0 18px 50px rgba(10, 20, 30, 0.12);
+      --radius: 8px;
+      --wrap: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--bg);
+      font-family: Inter, "Segoe UI", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      line-height: 1.55;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; height: auto; }
+    .wrap {
+      width: min(var(--wrap), calc(100% - 2rem));
+      margin: 0 auto;
+    }
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1.25rem 0 0;
+      color: #f7fbfd;
+      position: relative;
+      z-index: 1;
+    }
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+    .brand strong {
+      font-size: 1rem;
+      letter-spacing: 0;
+      font-weight: 700;
+    }
+    .brand span {
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 0.92rem;
+    }
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 0.55rem;
+    }
+    .nav a, .button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-height: 2.5rem;
+      padding: 0.55rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(12, 18, 22, 0.28);
+      color: #f9fcfd;
+      font-size: 0.95rem;
+      backdrop-filter: blur(8px);
+    }
+    .nav a:hover, .button:hover { border-color: rgba(255,255,255,0.4); background: rgba(12, 18, 22, 0.38); }
+    .button.light {
+      border-color: var(--line);
+      background: var(--panel);
+      color: var(--ink);
+    }
+    .button.light:hover {
+      border-color: var(--line-strong);
+      background: #f8fbfc;
+    }
+    .icon {
+      width: 1rem;
+      height: 1rem;
+      flex: 0 0 auto;
+      stroke: currentColor;
+      stroke-width: 1.85;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .hero {
+      position: relative;
+      background:
+        linear-gradient(rgba(8, 15, 20, 0.66), rgba(8, 15, 20, 0.68)),
+        url("assets/benchmark_overview.jpg") center/cover no-repeat;
+      color: #f7fbfd;
+      min-height: 84vh;
+      display: flex;
+      align-items: stretch;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 1px;
+      background: rgba(255,255,255,0.16);
+    }
+    .hero__inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2.2rem;
+      padding-bottom: 3rem;
+      width: 100%;
+    }
+    .hero__grid {
+      display: grid;
+      gap: 1.5rem;
+      align-items: end;
+      padding: 3rem 0 2rem;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      width: fit-content;
+      margin: 0 0 1rem;
+      padding: 0.38rem 0.7rem;
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.92);
+      font-size: 0.88rem;
+      letter-spacing: 0.02em;
+    }
+    .hero h1 {
+      margin: 0;
+      max-width: 11ch;
+      font-size: 3rem;
+      line-height: 1.02;
+      letter-spacing: 0;
+      font-weight: 750;
+    }
+    .hero p {
+      margin: 0;
+      max-width: 58rem;
+      font-size: 1.08rem;
+      color: rgba(247, 251, 253, 0.88);
+    }
+    .hero__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      margin-top: 1.4rem;
+    }
+    .hero__panel {
+      display: grid;
+      gap: 1rem;
+      padding: 1.1rem 0 0;
+      border-top: 1px solid rgba(255,255,255,0.18);
+    }
+    .hero__panel dl {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.9rem;
+      margin: 0;
+    }
+    .hero__panel div {
+      padding: 0.95rem 1rem;
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: var(--radius);
+      background: rgba(9, 14, 18, 0.24);
+    }
+    .hero__panel dt {
+      font-size: 0.84rem;
+      color: rgba(255,255,255,0.76);
+      margin-bottom: 0.25rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .hero__panel dd {
+      margin: 0;
+      color: #f8fcfd;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .band {
+      padding: 4rem 0;
+      background: var(--bg);
+    }
+    .band.alt { background: #f8fafb; }
+    .band h2 {
+      margin: 0 0 0.65rem;
+      font-size: 2rem;
+      line-height: 1.15;
+      letter-spacing: 0;
+    }
+    .lede {
+      margin: 0 0 1.8rem;
+      max-width: 56rem;
+      color: var(--muted);
+      font-size: 1.03rem;
+    }
+    .grid-4 {
+      display: grid;
+      gap: 1rem;
+    }
+    .tile {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      padding: 1rem 1rem 1.05rem;
+      box-shadow: 0 1px 0 rgba(14, 24, 30, 0.03);
+    }
+    .tile h3 {
+      margin: 0 0 0.45rem;
+      font-size: 1.02rem;
+      line-height: 1.2;
+    }
+    .tile p,
+    .tile li {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    .tile ul {
+      margin: 0.55rem 0 0;
+      padding: 0 0 0 1.1rem;
+    }
+    .media-grid {
+      display: grid;
+      gap: 1rem;
+    }
+    figure.asset {
+      margin: 0;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+    figure.asset img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      background: #dde5e8;
+    }
+    figure.asset figcaption {
+      padding: 0.9rem 1rem 1rem;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+    .steps {
+      display: grid;
+      gap: 0.9rem;
+      counter-reset: step;
+    }
+    .step {
+      display: grid;
+      grid-template-columns: 3rem 1fr;
+      gap: 0.9rem;
+      align-items: start;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      padding: 1rem;
+    }
+    .step::before {
+      counter-increment: step;
+      content: counter(step);
+      display: grid;
+      place-items: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 999px;
+      background: #0f172a;
+      color: #fff;
+      font-weight: 700;
+      margin-top: 0.1rem;
+    }
+    .step h3 { margin: 0 0 0.35rem; font-size: 1.02rem; }
+    .step p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+    .links {
+      display: grid;
+      gap: 0.8rem;
+    }
+    .link-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+    }
+    .audit-list {
+      display: grid;
+      gap: 0.9rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .audit-list li {
+      padding: 0.9rem 1rem;
+      border-left: 3px solid var(--accent);
+      background: var(--panel);
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      color: var(--muted);
+    }
+    .zh {
+      direction: ltr;
+    }
+    .zh h2, .zh h3, .zh p, .zh li { font-family: Inter, "Segoe UI", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; }
+    footer {
+      padding: 2rem 0 3rem;
+      color: var(--muted);
+      font-size: 0.92rem;
+      text-align: center;
+    }
+    @media (min-width: 760px) {
+      .hero__grid { grid-template-columns: minmax(0, 1.3fr) minmax(290px, 0.7fr); padding-top: 4rem; }
+      .hero__panel dl { grid-template-columns: 1fr 1fr; }
+      .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .media-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .links { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    @media (min-width: 1080px) {
+      .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .hero h1 { font-size: 4rem; }
+      .hero p { font-size: 1.12rem; }
+      .steps { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+      .step { grid-template-columns: 1fr; }
+      .step::before { margin-bottom: 0.6rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap hero__inner">
+      <div class="topbar">
+        <div class="brand">
+          <strong>EndoPremiseBench</strong>
+          <span>Project page for the final paper workspace</span>
+        </div>
+        <nav class="nav" aria-label="Primary">
+          <a href="#assets">Visuals</a>
+          <a href="#pipeline">Pipeline</a>
+          <a href="#audit">Audit</a>
+          <a href="https://github.com/Luious-LYH/EndoPremiseBench" target="_blank" rel="noreferrer">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M10 7h7v7"/><path d="M14 7h3v3"/></svg>
+            GitHub
+          </a>
+        </nav>
+      </div>
+
+      <div class="hero__grid">
+        <div>
+          <div class="eyebrow">Endoscopic VQA · false-premise diagnosis</div>
+          <h1>Diagnosing false-premise attribute answering</h1>
+          <p>
+            EndoPremiseBench evaluates whether a model answers only when the visual
+            premise is actually supported. The benchmark pairs supported-question
+            utility with unsupported-attribute refusal, so a model cannot look good
+            by being confident in the wrong direction.
+          </p>
+          <div class="hero__actions">
+            <a class="button light" href="../README.md">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h9l3 3v13H6z"/><path d="M15 4v4h3"/></svg>
+              README
+            </a>
+            <a class="button light" href="code_audit.md">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h10l3 3v13H4V4z"/><path d="M8 10h8M8 14h8M8 18h5"/></svg>
+              Code audit
+            </a>
+            <a class="button light" href="https://github.com/Luious-LYH/EndoPremiseBench/blob/main/docs/code_audit.md" target="_blank" rel="noreferrer">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M10 7h7v7"/><path d="M14 7h3v3"/></svg>
+              GitHub source
+            </a>
+          </div>
+        </div>
+
+        <aside class="hero__panel" aria-label="Key facts">
+          <dl>
+            <div>
+              <dt>Task</dt>
+              <dd>4-way MCQ with one `Not applicable` option</dd>
+            </div>
+            <div>
+              <dt>Scope</dt>
+              <dd>True-premise utility + false-premise refusal</dd>
+            </div>
+            <div>
+              <dt>Code</dt>
+              <dd>Sanitized, repository-relative, reproducible</dd>
+            </div>
+            <div>
+              <dt>Status</dt>
+              <dd>Final 2026-05-26 release workspace and public Pages site</dd>
+            </div>
+          </dl>
+        </aside>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="band">
+      <div class="wrap">
+        <h2>At a glance</h2>
+        <p class="lede">
+          The release keeps the code tree clean, makes the paper assets auditable,
+          and separates experiment logic from generated outputs.
+        </p>
+        <div class="grid-4">
+          <article class="tile">
+            <h3>Utility</h3>
+            <p>Measures whether the model still answers real visual questions well.</p>
+          </article>
+          <article class="tile">
+            <h3>Restraint</h3>
+            <p>Checks whether unsupported attributes are correctly rejected.</p>
+          </article>
+          <article class="tile">
+            <h3>Controls</h3>
+            <p>Includes prompt sensitivity, image mismatch, and repair manifests.</p>
+          </article>
+          <article class="tile">
+            <h3>Auditability</h3>
+            <p>Documents what came from the old tree and what was intentionally excluded.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="band alt" id="assets">
+      <div class="wrap">
+        <h2>Visual evidence</h2>
+        <p class="lede">
+          The updated overview figure and result panel are kept lightweight for the
+          README and GitHub Pages site while preserving the paper-facing layout.
+        </p>
+        <div class="media-grid">
+          <figure class="asset">
+            <img src="assets/benchmark_overview.jpg" alt="EndoPremiseBench benchmark overview">
+            <figcaption>
+              Updated benchmark construction and evaluation overview, exported from
+              the refreshed PNG master into a lightweight web-ready image.
+            </figcaption>
+          </figure>
+          <figure class="asset">
+            <img src="assets/result_panel.jpg" alt="EndoPremiseBench result panel">
+            <figcaption>
+              Result summary panel showing the utility-restraint tradeoff the paper
+              is built around.
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="pipeline">
+      <div class="wrap">
+        <h2>Pipeline</h2>
+        <p class="lede">
+          The release is organized as a reproducible chain from source profiling to
+          paper assets.
+        </p>
+        <div class="steps">
+          <article class="step">
+            <div>
+              <h3>Profile the source datasets</h3>
+              <p>Convert endoscopic question sources into a benchmark-ready ontology.</p>
+            </div>
+          </article>
+          <article class="step">
+            <div>
+              <h3>Build the balanced split</h3>
+              <p>Construct the main 6,000-item evaluation split and the control manifests.</p>
+            </div>
+          </article>
+          <article class="step">
+            <div>
+              <h3>Run inference</h3>
+              <p>Support open-weight, text-only, and API-compatible closed-model runs.</p>
+            </div>
+          </article>
+          <article class="step">
+            <div>
+              <h3>Score and summarize</h3>
+              <p>Parse answers conservatively, score outputs, and summarize metrics.</p>
+            </div>
+          </article>
+          <article class="step">
+            <div>
+              <h3>Freeze the paper assets</h3>
+              <p>Produce the tables, inventories, and provenance reports for submission.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="band alt" id="audit">
+      <div class="wrap">
+        <h2>Reproducibility and provenance</h2>
+        <p class="lede">
+          The public repository keeps the code needed for reproduction, while raw
+          outputs, endpoint pools, logs, and private launch material stay out of
+          the release.
+        </p>
+        <div class="links">
+          <article class="tile">
+            <h3>Code audit</h3>
+            <p>What was pulled from the old tree, 84, and 89, and why some files were excluded.</p>
+          </article>
+          <article class="tile">
+            <h3>Software manifest</h3>
+            <p>Staged inventory and hashes for the software package attached to the paper.</p>
+          </article>
+          <article class="tile">
+            <h3>Release notes</h3>
+            <p>Short change log for the final paper workspace and the public code tree.</p>
+          </article>
+        </div>
+        <div class="link-row" style="margin-top: 1rem;">
+          <a class="button light" href="code_audit.md">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h10l3 3v13H4V4z"/><path d="M8 10h8M8 14h8M8 18h5"/></svg>
+            Read the audit
+          </a>
+          <a class="button light" href="software_manifest.tsv">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h12v16H6z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>
+            Open manifest
+          </a>
+          <a class="button light" href="release_notes.md">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h9l3 3v13H6z"/><path d="M15 4v4h3"/></svg>
+            Release notes
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="band zh">
+      <div class="wrap">
+        <h2>中文摘要</h2>
+        <p class="lede">
+          EndoPremiseBench 面向内镜 VQA 中的“虚假前提”问题：模型是否会在图像并不支持某个属性时，仍然顺着题目继续回答。这个基准把真实前提问题的有用回答能力与虚假前提下的拒答能力放在一起评估，避免只看准确率而忽略不支持属性暴露。
+        </p>
+        <div class="grid-4">
+          <article class="tile">
+            <h3>基准</h3>
+            <p>四选一 MCQ，并包含一个 `Not applicable` 选项。</p>
+          </article>
+          <article class="tile">
+            <h3>代码</h3>
+            <p>公开仓库只保留可复现的核心逻辑，路径默认相对仓库根目录。</p>
+          </article>
+          <article class="tile">
+            <h3>审计</h3>
+            <p>已记录从旧目录与 84/89 服务器纳入和排除的内容。</p>
+          </article>
+          <article class="tile">
+            <h3>页面</h3>
+            <p>本页可作为 GitHub Pages 的公开展示页直接发布。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      EndoPremiseBench · ARR submission · Public project page for the final paper workspace
+    </div>
+  </footer>
+</body>
+</html>

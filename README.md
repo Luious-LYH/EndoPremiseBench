@@ -3,44 +3,29 @@
 **Diagnosing false-premise attribute answering in endoscopic VQA.**
 
 [![Paper](https://img.shields.io/badge/Paper-ARR%20submission-B31B1B.svg)](#citation)
-[![Project page](https://img.shields.io/badge/Project%20Page-docs%2Findex.md-2563EB.svg)](docs/index.md)
+[![Project Page](https://img.shields.io/badge/Project%20Page-GitHub%20Pages-2563EB.svg)](https://luious-lyh.github.io/EndoPremiseBench/)
 [![Code](https://img.shields.io/badge/Code-reproducible%20pipeline-2F855A.svg)](#quick-start)
-[![Data policy](https://img.shields.io/badge/Data-bring%20your%20licensed%20copies-6B7280.svg)](#data)
+[![Data Policy](https://img.shields.io/badge/Data-bring%20licensed%20copies-6B7280.svg)](#data)
 
-EndoPremiseBench asks whether a vision-language model can answer endoscopic
-questions only when the visual premise is supported by the image. Each probe is
-a 4-way MCQ with a `Not applicable` option. Models must preserve utility on
-true-premise questions while refusing unsupported attributes on false-premise
-questions.
+[Project page](https://luious-lyh.github.io/EndoPremiseBench/) | [Local page](docs/index.html) | [English](#english) | [中文](#中文)
 
 <p align="center">
   <img src="assets/readme/benchmark_overview.jpg" width="95%" alt="EndoPremiseBench construction and evaluation overview">
 </p>
 
+## English
+
+EndoPremiseBench asks whether a vision-language model can answer an endoscopic
+question only when the visual premise is supported by the image. Each probe is a
+4-way multiple-choice question with one `Not applicable` option. A reliable
+model should preserve utility on true-premise questions while refusing
+unsupported attributes on false-premise questions.
+
 ## News
 
-- **2026-06-01:** Public code tree refreshed for the final paper workspace.
-- **2026-05-26:** ARR/OpenReview software package staged with sanitized paths
-  and reproducibility scripts.
-- **2026-05-24:** Main 6,000-item probe split, controls, and paper-facing
-  analysis assets finalized.
-
-## What This Repository Contains
-
-- Benchmark construction scripts for source profiling, premise conversion,
-  balanced split creation, and control manifests.
-- Local open-weight VLM runners, text-only controls, and API-compatible closed
-  model inference.
-- Conservative answer parsing and metrics for supported-question accuracy,
-  false-premise rejection, unsupported-attribute exposure, over-refusal, parse
-  failures, and balance.
-- Paper-facing analysis utilities for tables and figures, including the frozen
-  20260525 asset builder.
-- Supplemental control utilities for prompt sensitivity, image mismatch,
-  closed/API text-only controls, parse repair, shard merging, and ID tracking.
-
-This repository intentionally does **not** redistribute endoscopy images, model
-weights, API keys, raw provider logs, or private review-stage material.
+- **2026-05-26:** Final paper software package staged with sanitized code,
+  updated benchmark visuals, supplemental-control utilities, and reviewer-facing
+  documentation.
 
 ## Highlights
 
@@ -53,7 +38,24 @@ weights, API keys, raw provider logs, or private review-stage material.
 - Refusal-only behavior is not enough: always choosing `Not applicable` solves
   false-premise rejection while destroying useful supported answering.
 - The released pipeline is source-balanced and auditable: construction,
-  inference, parsing, scoring, and paper tables are separate scripts.
+  inference, parsing, scoring, control generation, and paper tables are separate
+  scripts.
+
+## What This Repository Contains
+
+- Benchmark construction scripts for source profiling, premise conversion,
+  balanced split creation, and control manifests.
+- Local open-weight VLM runners, text-only controls, and API-compatible closed
+  model inference.
+- Conservative answer parsing and metrics for supported-question accuracy,
+  false-premise rejection, unsupported-attribute exposure, over-refusal, parse
+  failures, and balance.
+- Paper-facing analysis utilities, including the frozen 20260525 asset builder.
+- Supplemental control utilities for prompt sensitivity, image mismatch,
+  closed/API text-only controls, parse repair, shard merging, and ID tracking.
+
+This repository does **not** redistribute endoscopy images, model weights, API
+keys, raw provider logs, or private review-stage material.
 
 ## Quick Start
 
@@ -185,7 +187,7 @@ scoring/        Answer parsing, self-tests, and metric computation.
 analysis/       Result aggregation and paper-facing asset generation.
 controls/       Supplemental controls, repair manifests, and API control runs.
 examples/       Copy-pasteable command recipes.
-docs/           Project-page style overview and release notes.
+docs/           GitHub Pages project site, audits, and release notes.
 assets/         README and project-page visuals.
 results/        Generated manifests, raw outputs, scored outputs.
 tables/         Generated CSV/Markdown/LaTeX tables.
@@ -206,6 +208,101 @@ fresh clones stay light.
   the two experiment servers, and why raw/log/endpoint artifacts were excluded.
 - Paper asset scripts assume that generated result bundles already exist; they
   do not rerun models.
+
+## 中文
+
+EndoPremiseBench 是一个面向内镜 VQA 的诊断型基准，核心问题是：模型是否只在图像真正支持问题前提时回答属性问题，并在问题前提不成立时拒绝继续“顺着题目编答案”。每个样本都是四选一 MCQ，其中包含一个 `Not applicable` 选项。一个可靠模型既要能回答真实前提问题，也要能拒绝不被图像支持的属性前提。
+
+## 最新动态
+
+- **2026-05-26：** 最终论文软件包已整理完成，包含脱敏后的公开代码、更新后的基准图示、补充控制实验工具和面向审稿人的文档。
+
+## 亮点
+
+- 内镜 VQA 需要同时评估**有用性**和**克制性**：只看真实前提准确率，会掩盖模型在虚假前提下暴露不支持属性的问题。
+- 单纯拒答不是解决方案：总是选择 `Not applicable` 虽然能提高虚假前提拒绝率，但会破坏真实前提问题上的可用性。
+- 公开代码将数据构建、推理、解析、评分、控制实验和论文表格生成拆开，便于复核和复现。
+
+## 仓库内容
+
+- 基准构建脚本：源数据画像、前提转换、平衡划分和控制 manifest 构建。
+- 推理脚本：本地开源 VLM、text-only 控制、API-compatible 闭源模型推理。
+- 保守答案解析与指标计算：真实前提准确率、虚假前提拒绝率、不支持属性暴露率、过度拒答率、解析失败率和平衡指标。
+- 论文分析工具：包括 20260525 冻结版论文资产构建器。
+- 补充实验工具：prompt sensitivity、image mismatch、闭源 API text-only control、parse repair、shard merge 和 ID tracking。
+
+本仓库不重新分发内镜图像、模型权重、API key、原始 provider 日志或私有审稿阶段材料。
+
+## 快速开始
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+Windows PowerShell:
+
+```powershell
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+```
+
+构建候选样本、主划分和控制集：
+
+```bash
+python data_building/profile_premise_data.py \
+  --config configs/premise_probe_v2.json \
+  --output-json results/data_reality_check_v2.json \
+  --output-candidates results/premise_candidates_v2.jsonl \
+  --output-md tables/data_reality_check_v2.md
+
+python data_building/build_balanced_subset.py \
+  --input results/premise_candidates_v2.jsonl \
+  --output results/premise_balanced_main_v2.jsonl
+
+python data_building/build_control_manifests.py \
+  --input results/premise_balanced_main_v2.jsonl \
+  --out-na results/premise_false2000_na_position_all_v1.jsonl \
+  --out-wording results/premise_false2000_wording_controls_v1.jsonl \
+  --out-report tables/control_manifest_report_v1.md
+```
+
+运行推理、评分和论文资产构建：
+
+```bash
+python inference/run_premise_inference.py \
+  --model-id Qwen/Qwen2.5-VL-7B-Instruct \
+  --adapter qwen25 \
+  --input results/premise_balanced_main_v2.jsonl \
+  --output results/qwen25_vl_7b_raw.jsonl \
+  --data-root data \
+  --project-root . \
+  --trust-remote-code
+
+python scoring/parse_and_score.py \
+  --input results/qwen25_vl_7b_raw.jsonl \
+  --output results/qwen25_vl_7b_scored.jsonl \
+  --metrics-output results/qwen25_vl_7b_metrics.json
+
+python analysis/build_paper_assets.py
+```
+
+## 数据说明
+
+请将已获授权的本地数据放在 `data/` 下，或在 `configs/premise_probe_v2.json` 中覆写路径。仓库只提供代码和构建逻辑，不包含原始内镜图像。
+
+## 指标说明
+
+| 指标 | 含义 |
+| --- | --- |
+| `Acc_TP` | 真实前提问题上的回答准确率。 |
+| `Acc_FP` | 虚假前提问题上的正确拒绝率。 |
+| `SR` | 虚假前提下的不支持属性暴露率。 |
+| `ORR` | 真实前提下的过度拒答率。 |
+| `PFR` | 保守解析后的解析失败率。 |
+| `HPS` | 真实前提准确率和虚假前提拒绝率的调和均衡分数。 |
 
 ## Citation
 
