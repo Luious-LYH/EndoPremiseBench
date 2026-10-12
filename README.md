@@ -19,12 +19,6 @@ question only when the visual premise is supported by the image. Each probe is a
 model should preserve utility on true-premise questions while refusing
 unsupported attributes on false-premise questions.
 
-## News
-
-- **2026-05-26:** Final paper software package staged with sanitized code,
-  updated benchmark visuals, supplemental-control utilities, and reviewer-facing
-  documentation.
-
 ## Highlights
 
 <p align="center">
