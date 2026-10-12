@@ -1,0 +1,30 @@
+control,model,setting,n,supported_accuracy_pct,false_premise_rejection_pct,unsupported_exposure_pct,true_premise_over_refusal_pct,balance_score_pct,accuracy_range_pct,rejection_range_pct,exposure_range_pct,balance_range_pct,notes
+question_only,GPT-5.5,image-blind,6000,0.0,100.0,0.0,100.0,0.0,,,,,Actual model run without images; zero supported accuracy contextualizes 100% rejection.
+question_only,Grok-4.20,image-blind,6000,0.0,100.0,0.0,100.0,0.0,,,,,Actual model run without images; zero supported accuracy contextualizes 100% rejection.
+question_only,InternVL2.5-4B,image-blind,6000,3.6,93.9,6.1,87.3,6.9,,,,,
+question_only,Lingshu-7B,image-blind,6000,8.0,67.8,32.2,78.5,14.3,,,,,
+question_only,MedGemma-4B,image-blind,6000,8.6,69.0,31.0,74.5,15.3,,,,,
+question_only,MedGemma-4B-Kvasir-ft,image-blind,6000,18.3,33.7,66.3,49.7,23.7,,,,,
+question_only,MiniCPM-V-4,image-blind,6000,22.7,49.6,50.3,50.7,31.2,,,,,
+question_only,Qwen2.5-VL-3B,image-blind,6000,1.1,98.9,1.1,95.8,2.2,,,,,
+question_only,Qwen2.5-VL-7B,image-blind,6000,3.2,93.5,3.8,90.1,6.2,,,,,
+question_only,Qwen2.5-VL-7B-Kvasir-ft,image-blind,6000,8.1,77.7,20.4,77.5,14.6,,,,,
+question_only,Qwen3-VL-4B,image-blind,6000,3.4,85.1,14.9,90.2,6.5,,,,,
+question_only,Qwen3-VL-8B,image-blind,6000,3.6,86.6,13.5,88.7,7.0,,,,,
+fixed_wording,GPT-5.5,image-conditioned,6000,,31.0,69.0,,,,,3.4-48.1,,,
+fixed_wording,Grok-4.20,text-only diagnostic,6000,,96.4,3.6,,,,,89.2-100.0,,,Not configuration-equivalent to image-conditioned wording rows.
+fixed_wording,InternVL2.5-8B,image-conditioned,6000,,53.2,46.8,,,,,37.6-74.4,,,
+fixed_wording,MedGemma-4B,image-conditioned,6000,,4.4,95.5,,,,,2.4-5.6,,,
+fixed_wording,Qwen3-VL-8B,image-conditioned,6000,,57.1,42.9,,,,,49.9-66.9,,,
+fixed_wording,Qwen2.5-VL-7B-Kvasir-ft,image-conditioned,6000,,72.3,27.2,,,,,64.6-77.6,,,
+prompt_sensitivity,Qwen3-VL-8B,four prompt variants,8000,,,,,,34.3-38.0,46.7-54.8,45.2-53.3,41.1-42.2,
+prompt_sensitivity,MedGemma-4B,four prompt variants,8000,,,,,,31.0-32.1,3.5-6.8,93.2-96.5,6.2-11.1,
+prompt_sensitivity,InternVL2.5-8B,four prompt variants,8000,,,,,,29.0-37.4,28.8-66.8,33.2-71.2,32.6-40.5,
+prompt_sensitivity,Qwen2.5-VL-7B-Kvasir-ft,four prompt variants,8000,,,,,,34.9-45.8,73.9-80.9,15.8-24.8,48.7-57.1,
+na_position,Qwen2.5-VL-7B-Kvasir-ft,false-premise position control,8000,,74.1,25.7,,,,,,,,
+na_position,InternVL2.5-8B,false-premise position control,8000,,44.1,55.8,,,,,,,,
+image_mismatch,Qwen2.5-VL-7B-Kvasir-ft,mismatched images,2000,18.0,58.4,41.1,,,27.5,,,,
+image_mismatch,InternVL2.5-8B,mismatched images,2000,17.9,35.0,65.0,,,23.7,,,,
+expanded_kvasir,Qwen2.5-VL-7B-Kvasir-ft,Kvasir-only,10000,48.1,73.1,26.6,2.0,58.1,,,,,Two supported probes duplicated; 9,998 unique IDs.
+expanded_kvasir,Qwen3-VL-8B,Kvasir-only,10000,36.8,48.6,51.4,5.5,41.9,,,,,Two supported probes duplicated; 9,998 unique IDs.
+expanded_kvasir,InternVL2.5-8B,Kvasir-only,10000,42.0,42.2,57.7,7.0,42.1,,,,,Two supported probes duplicated; 9,998 unique IDs.

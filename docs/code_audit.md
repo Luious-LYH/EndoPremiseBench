@@ -41,8 +41,9 @@ The following classes of files were audited but not migrated into the public
 repository:
 
 - Raw model outputs, scored JSONL files, provider response dumps, and generated
-  metrics. These are result artifacts, not source code, and can contain
-  provider-specific metadata.
+  row-level metrics. These are result artifacts, not source code, and can
+  contain provider-specific metadata. The release includes only compact,
+  paper-facing aggregate CSVs with no per-example rows.
 - Server logs, scheduler logs, terminal transcripts, and `screen` orchestration
   scripts. They document a local execution environment but do not improve public
   reproducibility.
@@ -59,3 +60,21 @@ inference, scoring, paper-facing aggregation, supplemental control construction,
 closed/API control execution, shard merging, parse repair, and ID audit. The
 remaining excluded files are intentionally non-public artifacts or
 server-specific launch material rather than necessary paper code.
+
+## Post-submission paper-alignment update (2026-10-13)
+
+The repository now includes the analysis code and aggregate outputs for the
+final atomic 2x2 crossover and the rebuttal-stage sensitivity analyses. The
+crossover builder creates 165 candidate blocks; a model-output-blind
+adjudication step retains 164 blocks (158 count and 6 location), after which
+the analyzer reports the count stratum as the primary table. The 84/89 server
+outputs and local fingerprints were checked against the frozen local evidence:
+the server runs contain the pre-adjudication 660-row model outputs, while the
+paper values use the adjudicated 656-row outputs. Intermediate paired-run
+launch scripts and server-specific orchestration were not copied.
+
+The six supplementary-control families cover 41 complete runs and 190,000
+scored model-probe outputs. Their released table is aggregate-only; the
+row-level control bundles remain private. The paper-facing main, sensitivity,
+control, and crossover tables omit the three deterministic reference-policy
+rows, consistent with the manuscript presentation.

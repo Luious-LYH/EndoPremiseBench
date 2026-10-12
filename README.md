@@ -45,9 +45,21 @@ unsupported attributes on false-premise questions.
 - Paper-facing analysis utilities, including the frozen 20260525 asset builder.
 - Supplemental control utilities for prompt sensitivity, image mismatch,
   closed/API text-only controls, parse repair, shard merging, and ID tracking.
+- Final-paper rebuttal analyses: per-attribute supported accuracy, filtered-split
+  sensitivity, and the adjudicated atomic 2x2 crossover.
 
 This repository does **not** redistribute endoscopy images, model weights, API
 keys, raw provider logs, or private review-stage material.
+
+## Final-paper results
+
+Compact paper-facing aggregates are checked in under [`results/`](results/)
+and described in [`results/README.md`](results/README.md). They cover the main
+comparison, rebuttal sensitivity analyses, six supplementary-control families,
+and the final atomic crossover. Row-level outputs and deterministic
+reference-policy rows are not included. See
+[`analysis/crossover/README.md`](analysis/crossover/README.md) for the crossover
+reproduction workflow and its source-data boundary.
 
 ## Quick Start
 
@@ -79,9 +91,13 @@ Create the balanced primary split and controls:
 
 ```bash
 python data_building/build_balanced_subset.py \
-  --input results/premise_candidates_v2.jsonl \
-  --output results/premise_balanced_main_v2.jsonl
+  --input results/premise_candidates_v2.jsonl
+```
 
+The builder writes `premise_balanced_main_v2.jsonl` and
+`premise_balanced_smoke_v2.jsonl` beside the input file.
+
+```bash
 python data_building/build_control_manifests.py \
   --input results/premise_balanced_main_v2.jsonl \
   --out-na results/premise_false2000_na_position_all_v1.jsonl \
@@ -176,18 +192,18 @@ prompts/        MCQ prompt templates.
 data_building/  Source profiling and benchmark manifest construction.
 inference/      Open-weight, text-only, and closed/API-compatible runners.
 scoring/        Answer parsing, self-tests, and metric computation.
-analysis/       Result aggregation and paper-facing asset generation.
+analysis/       Result aggregation, sensitivity, and crossover analysis.
 controls/       Supplemental controls, repair manifests, and API control runs.
 examples/       Copy-pasteable command recipes.
 docs/           GitHub Pages project site, audits, and release notes.
 assets/         README and project-page visuals.
-results/        Generated manifests, raw outputs, scored outputs.
+results/        Checked-in aggregates; generated manifests and model outputs.
 tables/         Generated CSV/Markdown/LaTeX tables.
 figures/        Generated paper figures.
 ```
 
-`results/`, `tables/`, and `figures/` are ignored except for placeholders so
-fresh clones stay light.
+Generated files under `results/`, `tables/`, and `figures/` are ignored by
+default; selected paper-facing aggregate CSVs under `results/` are checked in.
 
 ## Reproducibility Notes
 
@@ -198,6 +214,9 @@ fresh clones stay light.
   and hashes used for the paper package.
 - `docs/code_audit.md` records what was included from the old local tree and
   the two experiment servers, and why raw/log/endpoint artifacts were excluded.
+- `results/README.md` explains the released aggregate tables and their scope.
+- `analysis/crossover/README.md` documents the final 164-block analysis; the
+  primary count stratum contains 158 blocks.
 - Paper asset scripts assume that generated result bundles already exist; they
   do not rerun models.
 

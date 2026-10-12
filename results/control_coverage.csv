@@ -1,0 +1,8 @@
+control,runs,scored_outputs,description
+question_only,12,72000,Images removed while retaining questions and options.
+fixed_wording,6,36000,Three false-premise wordings; one row is a separately identified text-only diagnostic.
+prompt_sensitivity,16,32000,Four prompt variants on a fixed subset for four open-weight models.
+na_position,2,16000,Not-applicable option placement control for two models.
+image_mismatch,2,4000,Same-source mismatched-image control for two models.
+expanded_kvasir,3,30000,Three anchor models on the frozen 10,000-row Kvasir-only manifest.
+total,41,190000,Aggregated coverage of the complete table-driving supplementary control suite.

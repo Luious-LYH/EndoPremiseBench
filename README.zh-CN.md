@@ -15,10 +15,6 @@
 
 EndoPremiseBench 是一个面向内镜 VQA 的诊断型基准，核心问题是：模型是否只在图像真正支持问题前提时回答属性问题，并在问题前提不成立时拒绝继续“顺着题目编答案”。每个样本都是四选一 MCQ，其中包含一个 `Not applicable` 选项。一个可靠模型既要能回答真实前提问题，也要能拒绝不被图像支持的属性前提。
 
-## 最新动态
-
-- **2026-05-26：** 最终论文软件包已整理完成，包含脱敏后的公开代码、更新后的基准图示、补充控制实验工具和面向审稿人的文档。
-
 ## 亮点
 
 <p align="center">
@@ -36,8 +32,13 @@ EndoPremiseBench 是一个面向内镜 VQA 的诊断型基准，核心问题是�
 - 保守答案解析与指标计算：真实前提准确率、虚假前提拒绝率、不支持属性暴露率、过度拒答率、解析失败率和平衡指标。
 - 论文分析工具：包括 20260525 冻结版论文资产构建器。
 - 补充实验工具：prompt sensitivity、image mismatch、闭源 API text-only control、parse repair、shard merge 和 ID tracking。
+- 最终稿补充分析：属性级真实前提准确率、过滤 location 与 morphology/type 后的敏感性分析，以及经审核的 atomic 2×2 crossover。
 
 本仓库不重新分发内镜图像、模型权重、API key、原始 provider 日志或私有审稿阶段材料。
+
+## 最终稿结果
+
+[`results/`](results/) 中提供与最终稿表格对齐的聚合结果，涵盖主比较、rebuttal 阶段敏感性分析、六类补充控制实验和最终 atomic crossover。结果说明见 [`results/README.md`](results/README.md)。仓库不包含逐行输出或确定性参考策略行。交叉实验的复现流程和数据边界见 [`analysis/crossover/README.md`](analysis/crossover/README.md)。
 
 ## 快速开始
 
@@ -69,9 +70,12 @@ python data_building/profile_premise_data.py \
 
 ```bash
 python data_building/build_balanced_subset.py \
-  --input results/premise_candidates_v2.jsonl \
-  --output results/premise_balanced_main_v2.jsonl
+  --input results/premise_candidates_v2.jsonl
+```
 
+该脚本会在输入文件所在目录生成 `premise_balanced_main_v2.jsonl` 和 `premise_balanced_smoke_v2.jsonl`。
+
+```bash
 python data_building/build_control_manifests.py \
   --input results/premise_balanced_main_v2.jsonl \
   --out-na results/premise_false2000_na_position_all_v1.jsonl \
@@ -162,17 +166,17 @@ prompts/        MCQ prompt 模板。
 data_building/  源数据画像和 benchmark manifest 构建。
 inference/      开源模型、text-only 和闭源/API-compatible 推理脚本。
 scoring/        答案解析、自测试和指标计算。
-analysis/       结果聚合与论文展示资产生成。
+analysis/       结果聚合、敏感性分析与交叉实验分析。
 controls/       补充控制实验、修复 manifest 和 API 控制运行。
 examples/       可直接复制使用的命令示例。
 docs/           GitHub Pages 项目主页、审计记录和 release notes。
 assets/         README 与项目主页视觉材料。
-results/        生成的 manifest、原始输出和评分输出。
+results/        已跟踪的论文聚合结果，以及默认忽略的生成数据和模型输出。
 tables/         生成的 CSV/Markdown/LaTeX 表格。
 figures/        生成的论文图。
 ```
 
-`results/`、`tables/` 和 `figures/` 默认只保留占位文件，其余生成物被忽略，以保证新 clone 的仓库保持轻量。
+`results/`、`tables/` 和 `figures/` 中生成的文件默认忽略；`results/` 下选定的论文聚合 CSV 会随仓库发布。
 
 ## 复现说明
 
@@ -181,6 +185,8 @@ figures/        生成的论文图。
   `--num-shards`、`--shard-index`、`--resume` 和 `--skip-success-output`。
 - `docs/software_manifest.tsv` 记录论文软件附件中的文件内容和哈希。
 - `docs/code_audit.md` 记录从旧本地目录和两台实验服务器纳入了哪些代码，以及为何排除 raw/log/endpoint 类产物。
+- `results/README.md` 说明已发布聚合表的范围与指标。
+- `analysis/crossover/README.md` 说明最终 164 个 block 的复现流程，其中主 count 分析包含 158 个 block。
 - 论文资产脚本假设结果包已经生成，不会重新运行模型。
 
 ## Citation
